@@ -283,6 +283,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridID: 0
   MousePlacement: 1
+  placed: 0
+  isPlacedOnGrid:
+    m_PersistentCalls:
+      m_Calls: []
+  placingButton: 323
+  checkCollision: 0
+  ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &1419987876
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -389,16 +398,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8c4056e9fd62ae4992608580583db77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid2D: 1
+  grid2D: 0
   gridCellSize2D: {x: 1, y: 1}
-  gridCellSize3D: {x: 1, y: 1, z: 1}
+  gridCellSize3D: {x: 1, y: 1, z: 0}
   gridCellGap2D: {x: 0, y: 0}
   gridCellGap3D: {x: 0, y: 0, z: 0}
   gridCellLayout: 0
   gridCellSwizzle: 0
   gridID: 0
-  drawGridPoints: 0
-  gridPointsColor: {r: 1, g: 0.96862745, b: 0, a: 1}
+  drawGridPoints: 1
+  gridPointsColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   radiusGridPoints: 0.1
   keepObjectInGrid: 1
   placeObjectRelativeToGridPosition: 1
