@@ -54,10 +54,12 @@ public class GridPlacer_Editor : Editor
         gridPlacerScript.grid2D = EditorGUILayout.Toggle("Grid2D", gridPlacerScript.grid2D);
         EditorGUILayout.Space();
         showGridMenu = EditorGUILayout.Foldout(showGridMenu, "Grid Options", true);
-        EditorGUILayout.Space();
+
 
         if (showGridMenu)
         {
+
+            EditorGUILayout.Space();
             if (gridPlacerScript.grid2D)
             {
                 Grid2D();
