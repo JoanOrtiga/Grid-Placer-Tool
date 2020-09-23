@@ -76,6 +76,16 @@ namespace GridPlacing
         /// </summary>
         public bool placeObjectRelativeToGridPosition = true;
 
+        /// <summary>
+        /// Range of visibility Square
+        /// </summary>
+        public Vector2Int visibilityRange = new Vector2Int(20, 20);
+
+        /// <summary>
+        /// Draw Grid ID text
+        /// </summary>
+        public bool drawGridIDText = false;
+
         private Grid grid;
 
         private void Awake()
@@ -85,16 +95,49 @@ namespace GridPlacing
 
         private void OnDrawGizmos()
         {
+            if(drawGridIDText)
+                Handles.Label(transform.position, "Grid ID: " + gridID);
+
             if (drawGridPoints)
             {
                 Gizmos.color = gridPointsColor;
-                for (int i = -20; i < 20; i++)
+
+                Vector2 cameraPosition = SceneView.lastActiveSceneView.pivot;
+
+                switch (gridCellLayout)
                 {
-                    for (int e = -20; e < 20; e++)
-                    {
-                        Gizmos.DrawSphere(new Vector2(i, e), radiusGridPoints);
-                    }
+                    case GridLayout.CellLayout.Rectangle:
+                        for (int i = -visibilityRange.x + Mathf.RoundToInt(cameraPosition.x); i < visibilityRange.x + Mathf.RoundToInt(cameraPosition.x); i++)
+                        {
+                            for (int e = -visibilityRange.y + Mathf.RoundToInt(cameraPosition.y); e < visibilityRange.y + Mathf.RoundToInt(cameraPosition.y); e++)
+                            {
+                                float x = i + transform.position.x - Mathf.RoundToInt(transform.position.x);
+                                float y = e + transform.position.y - Mathf.RoundToInt(transform.position.y);
+
+                                Gizmos.DrawSphere(new Vector2(x, y), radiusGridPoints);
+                            }
+                        }
+                        break;
+                    case GridLayout.CellLayout.Hexagon:
+                        for (int i = -visibilityRange.x + Mathf.RoundToInt(cameraPosition.x); i < visibilityRange.x + Mathf.RoundToInt(cameraPosition.x); i++)
+                        {
+                            for (int e = -visibilityRange.y + Mathf.RoundToInt(cameraPosition.y); e < visibilityRange.y + Mathf.RoundToInt(cameraPosition.y); e++)
+                            {
+
+                                float x = i + transform.position.x - Mathf.RoundToInt(transform.position.x);
+                                float y = e + transform.position.y - Mathf.RoundToInt(transform.position.y);
+
+                                Gizmos.DrawSphere(new Vector2(x, y), radiusGridPoints);
+                            }
+                        }
+                        break;
+                    case GridLayout.CellLayout.Isometric:
+                        break;
+                    case GridLayout.CellLayout.IsometricZAsY:
+                        break;
                 }
+
+                
             }
         }
 
@@ -128,7 +171,7 @@ namespace GridPlacing
             int xCount = Mathf.RoundToInt(mousePosition.x / grid.cellSize.x);
             int yCount = Mathf.RoundToInt(mousePosition.y / grid.cellSize.y);
 
-            Vector3 result = new Vector2(xCount * gridCellSize2D.x, yCount * gridCellSize2D.y);
+            Vector3 result = new Vector2(xCount * gridCellSize2D.x + transform.position.x, yCount * gridCellSize2D.y + transform.position.y);
 
             if(placeObjectRelativeToGridPosition)
                 result += transform.position; //If grid isn't x=0, y=0

@@ -1,6 +1,7 @@
 ﻿using GridPlacing;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,8 +18,37 @@ namespace GridPlacing
         /// <summary>
         /// Is the object moveable with mouse to attach grid?
         /// </summary>
-        public bool MousePlacement = true;
-        
+        public bool mousePlacement = true;
+
+        public bool mouseMoving;
+        public bool keyboardMoving;
+
+        public KeyCode moveUp = KeyCode.U;
+        public KeyCode moveDown = KeyCode.N;
+        public KeyCode moveRight = KeyCode.K;
+        public KeyCode moveLeft = KeyCode.H;
+        public KeyCode moveUpRight = KeyCode.I;
+        public KeyCode moveUpLeft = KeyCode.Y;
+        public KeyCode moveDownRight = KeyCode.M;
+        public KeyCode moveDownLeft = KeyCode.B;
+
+
+        public bool keyboardPlacement = false;
+
+        /// <summary>
+        /// Which button to place object.
+        /// </summary>
+        public KeyCode mousePlacingButton = KeyCode.Mouse0;
+
+        public KeyCode keyboardPlacingButton = KeyCode.J;
+
+        public bool confineMouse = false;
+
+
+
+
+
+
         /// <summary>
         /// Bool that tells if object is placed or is moving.
         /// </summary>
@@ -30,15 +60,18 @@ namespace GridPlacing
         public UnityEvent isPlacedOnGrid;
 
 
-        
 
-        /// <summary>
-        /// Which button to place object.
-        /// </summary>
-        public KeyCode placingButton = KeyCode.Mouse0;
 
-        public bool checkCollision;
+
+
+
+        public bool automaticDetection;
+        public CollisionMode modeOfCollision;
         public LayerMask ignoreLayers;
+        private Collider2D colliderReference;
+
+        public CollisionType collisionType;
+
 
 
         /// <summary>
@@ -46,22 +79,42 @@ namespace GridPlacing
         /// </summary>
         private GridPlacer attachGrid;
 
-        private Collider2D colliderReference;
-        private GameObject colliderChecker;
-
-        private void Awake()
+        private void Start()
         {
-            if (checkCollision)
+            if (attachGrid.grid2D)
             {
-                if (this.GetComponent<Collider2D>() != null)
+                if (automaticDetection)
                 {
-                    colliderReference = GetComponent<Collider2D>();
-                    
+                    if (modeOfCollision == CollisionMode.Simple)
+                    {
+                        if (this.GetComponent<Collider2D>() != null)
+                        {
+                            colliderReference = GetComponent<Collider2D>();
+
+                            if (colliderReference is BoxCollider2D)
+                            {
+                               BoxCollider2D boxC = colliderReference as BoxCollider2D;
+                            }
+                            else if (colliderReference is CircleCollider2D)
+                            {
+
+                            }
+                            else if (colliderReference is CapsuleCollider2D)
+                            {
+
+                            }
+                        }
+                    }
                 }
-                else
-                {
-                    print("If CheckCollision is ON, make sure to have a collision on gameObject so it can check if it fits.");
-                }
+            }
+
+
+
+
+
+            if (confineMouse)
+            {
+                Cursor.lockState = CursorLockMode.Confined;
             }
         }
 
@@ -74,25 +127,32 @@ namespace GridPlacing
             placed = false;
         }
 
-        public int SetGridID
+        public int GridID
         {
             set
             {
                 //If GridID is changed from another script, reload the attached grid.
                 gridID = value;
+
                 attachGrid = MasterGrid.FindGridByID(gridID);
+            }
+            get
+            {
+                return gridID;
             }
         }
 
+        
+
         private void Update()
         {
-            if (MousePlacement) //If mousePlacement is enabled.
+            if (mousePlacement) //If mousePlacement is enabled.
             {
 
                 //Change position of the object relative to MousePosition and Grid options.
                 transform.position = attachGrid.GetPositionInGridByMouse();
 
-                if (Input.GetKey(placingButton)) //If placingButton is pressed, object is placed.
+                if (Input.GetKey(mousePlacingButton)) //If placingButton is pressed, object is placed.
                 {
 
                     placed = true; //Since now is placed, change the value of placed.
@@ -106,6 +166,23 @@ namespace GridPlacing
         {
             return true;
         }
+
+        
+    }
+
+
+
+
+
+
+    public enum CollisionMode
+    {
+        None, Simple, Complex
+    }
+
+    public enum CollisionType
+    {
+        Box, Circle, Cylinder
     }
 }
 

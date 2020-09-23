@@ -160,12 +160,108 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 16878942}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.6334913, y: 0.17288175, z: -1.8898201}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &291904782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 291904786}
+  - component: {fileID: 291904785}
+  - component: {fileID: 291904784}
+  - component: {fileID: 291904783}
+  m_Layer: 0
+  m_Name: Plane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!64 &291904783
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291904782}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &291904784
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291904782}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 9674eef28c93c8c499a0ab5cfb197175, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &291904785
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291904782}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &291904786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 291904782}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
+  m_LocalScale: {x: 150, y: 1, z: 150}
+  m_Children: []
+  m_Father: {fileID: 1552660896}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,7 +356,6 @@ GameObject:
   - component: {fileID: 1419987879}
   - component: {fileID: 1419987878}
   - component: {fileID: 1419987877}
-  - component: {fileID: 1419987876}
   - component: {fileID: 1419987875}
   m_Layer: 0
   m_Name: Cube
@@ -282,29 +377,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridID: 0
-  MousePlacement: 1
-  placed: 0
+  mousePlacement: 1
+  mouseMoving: 1
+  keyboardMoving: 0
+  moveUp: 117
+  moveDown: 110
+  moveRight: 107
+  moveLeft: 104
+  moveUpRight: 105
+  moveUpLeft: 121
+  moveDownRight: 109
+  moveDownLeft: 98
+  keyboardPlacement: 0
+  mousePlacingButton: 323
+  keyboardPlacingButton: 106
+  confineMouse: 0
+  placed: 1
   isPlacedOnGrid:
     m_PersistentCalls:
       m_Calls: []
-  placingButton: 323
-  checkCollision: 0
+  automaticDetection: 0
+  modeOfCollision: 1
   ignoreLayers:
     serializedVersion: 2
     m_Bits: 0
---- !u!65 &1419987876
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1419987874}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  collisionType: 0
 --- !u!23 &1419987877
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -362,11 +459,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1419987874}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.0851588, y: -0.13233386, z: 0}
+  m_LocalPosition: {x: 2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1552660894
 GameObject:
@@ -398,7 +495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8c4056e9fd62ae4992608580583db77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grid2D: 0
+  grid2D: 1
   gridCellSize2D: {x: 1, y: 1}
   gridCellSize3D: {x: 1, y: 1, z: 0}
   gridCellGap2D: {x: 0, y: 0}
@@ -408,9 +505,11 @@ MonoBehaviour:
   gridID: 0
   drawGridPoints: 1
   gridPointsColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  radiusGridPoints: 0.1
-  keepObjectInGrid: 1
-  placeObjectRelativeToGridPosition: 1
+  radiusGridPoints: 0.15
+  keepObjectInGrid: 0
+  placeObjectRelativeToGridPosition: 0
+  visibilityRange: {x: 20, y: 20}
+  drawGridIDText: 1
 --- !u!4 &1552660896
 Transform:
   m_ObjectHideFlags: 0
@@ -421,7 +520,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 291904786}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
