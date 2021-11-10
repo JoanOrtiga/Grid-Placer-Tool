@@ -8,6 +8,16 @@ using UnityEngine.Events;
 
 namespace GridPlacing
 {
+    public enum CollisionMode
+    {
+        None, Simple, Complex
+    }
+
+    public enum CollisionType
+    {
+        Box, Circle, Cylinder
+    }
+
     public class AttachToGrid : MonoBehaviour
     {
         /// <summary>
@@ -83,9 +93,9 @@ namespace GridPlacing
         {
             if (attachGrid.grid2D)
             {
-                if (automaticDetection)
+                if (modeOfCollision == CollisionMode.Simple)
                 {
-                    if (modeOfCollision == CollisionMode.Simple)
+                    if (automaticDetection)
                     {
                         if (this.GetComponent<Collider2D>() != null)
                         {
@@ -93,15 +103,15 @@ namespace GridPlacing
 
                             if (colliderReference is BoxCollider2D)
                             {
-                               BoxCollider2D boxC = colliderReference as BoxCollider2D;
+                                collisionType = CollisionType.Box;
                             }
                             else if (colliderReference is CircleCollider2D)
                             {
-
+                                collisionType = CollisionType.Circle;
                             }
                             else if (colliderReference is CapsuleCollider2D)
                             {
-
+                                collisionType = CollisionType.Cylinder;
                             }
                         }
                     }
@@ -127,6 +137,7 @@ namespace GridPlacing
             placed = false;
         }
 
+
         public int GridID
         {
             set
@@ -142,7 +153,7 @@ namespace GridPlacing
             }
         }
 
-        
+
 
         private void Update()
         {
@@ -154,10 +165,41 @@ namespace GridPlacing
 
                 if (Input.GetKey(mousePlacingButton)) //If placingButton is pressed, object is placed.
                 {
+                    switch (collisionType)
+                    {
+                        case CollisionType.Box:
 
-                    placed = true; //Since now is placed, change the value of placed.
-                    isPlacedOnGrid.Invoke(); //Invoke event.
-                    this.enabled = false; //Disable script, no loger will be moving.
+                            BoxCollider2D box = colliderReference as BoxCollider2D;
+
+                            colliderReference.enabled = false;
+
+                            if (!Physics2D.BoxCast((Vector2)transform.position + colliderReference.offset, box.size, transform.rotation.eulerAngles.z, transform.forward, 10, ignoreLayers.value))
+                            {
+                                
+
+                                Place();
+                            }
+                            break;
+                            /* case CollisionType.Circle:
+
+                               if (!Physics2D.BoxCast((Vector2)transform.position + colliderReference.offset, colliderReference.size))
+                                {
+                                    Place();
+                                }
+                                break;
+                            case CollisionType.Cylinder:
+
+                                if (!Physics2D.BoxCast((Vector2)transform.position + colliderReference.offset, colliderReference.size))
+                                {
+                                    Place();
+                                }
+                                break;
+                            default:
+                                break;*/
+                    }
+
+
+                    colliderReference.enabled = true;
                 }
             }
         }
@@ -167,7 +209,14 @@ namespace GridPlacing
             return true;
         }
 
-        
+        private void Place()
+        {
+            placed = true; //Since now is placed, change the value of placed.
+            isPlacedOnGrid.Invoke(); //Invoke event.
+            this.enabled = false; //Disable script, no loger will be moving.
+        }
+
+
     }
 
 
@@ -175,14 +224,5 @@ namespace GridPlacing
 
 
 
-    public enum CollisionMode
-    {
-        None, Simple, Complex
-    }
-
-    public enum CollisionType
-    {
-        Box, Circle, Cylinder
-    }
 }
 

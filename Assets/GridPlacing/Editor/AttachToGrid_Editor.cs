@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEditorInternal;
+
 
 using GridPlacing;
 
@@ -107,6 +109,13 @@ public class AttachToGrid_Editor : Editor
             else if (attachToGridScript.modeOfCollision == CollisionMode.Complex)
             {
 
+            }
+
+            if(attachToGridScript.modeOfCollision != CollisionMode.None)
+            {
+                LayerMask tempMask = EditorGUILayout.MaskField(new GUIContent("Ignore Collision Layer Mask", "Unselected layers will not be checked for collision."), InternalEditorUtility.LayerMaskToConcatenatedLayersMask(attachToGridScript.ignoreLayers), InternalEditorUtility.layers);
+
+                attachToGridScript.ignoreLayers = InternalEditorUtility.ConcatenatedLayersMaskToLayerMask(tempMask);
             }
         }
 
